@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#1989fa">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>行程规划助手</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon-192.png">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <!-- Vant 4 样式 -->
+  <link rel="stylesheet" href="https://unpkg.com/vant@4/lib/index.css">
+  <!-- 自定义样式 -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- 顶部标题栏 -->
+    <van-nav-bar :title="pageTitle" fixed placeholder />
+
+    <!-- 页面内容区 -->
+    <div class="page-content">
+      <!-- Tab 0: 月历 -->
+      <div v-show="activeTab === 0">
+        <calendar-page ref="calendarPage"></calendar-page>
+      </div>
+      <!-- Tab 1: 门店管理 -->
+      <div v-show="activeTab === 1">
+        <store-page ref="storePage"></store-page>
+      </div>
+      <!-- Tab 2: 每日计划 -->
+      <div v-show="activeTab === 2">
+        <plan-page ref="planPage"></plan-page>
+      </div>
+      <!-- Tab 3: 设置 -->
+      <div v-show="activeTab === 3">
+        <settings-page></settings-page>
+      </div>
+    </div>
+
+    <!-- 底部导航栏 -->
+    <van-tabbar v-model="activeTab" fixed placeholder>
+      <van-tabbar-item icon="calendar-o">日历</van-tabbar-item>
+      <van-tabbar-item icon="shop-o">门店</van-tabbar-item>
+      <van-tabbar-item icon="todo-list-o">计划</van-tabbar-item>
+      <van-tabbar-item icon="setting-o">设置</van-tabbar-item>
+    </van-tabbar>
+  </div>
+
+  <!-- CDN 依赖 -->
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://unpkg.com/vant@4/lib/vant.min.js"></script>
+  <script src="https://unpkg.com/dexie@3/dist/dexie.min.js"></script>
+  <!-- 高德地图 JS API 2.0 -->
+  <script>
+    window._AMapSecurityConfig = {
+      securityJsCode: 'a7b7e4deb1ca57d9befed3873ce8b6b3'
+    };
+  </script>
+  <script src="https://webapi.amap.com/maps?v=2.0&key=d2a95ec5ce9777740a8ef0060c0e7e1c"></script>
+
+  <!-- 应用代码 -->
+  <script src="js/db.js"></script>
+  <script src="js/geocoding.js"></script>
+  <script src="js/tsp.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
